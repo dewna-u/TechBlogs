@@ -1,8 +1,10 @@
 // controller/AuthController.java
 package com.techblogs.techblogs.controller;
 
-import com.techblogs.techblogs.model.User;
+// In AuthController.java
 import com.techblogs.techblogs.repository.UserRepository;
+import com.techblogs.techblogs.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

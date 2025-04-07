@@ -1,6 +1,6 @@
 package com.techblogs.techblogs.repository;
 
-import com.techblogs.model.User;
+import com.techblogs.techblogs.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
