@@ -1,5 +1,8 @@
 package com.techblogs.techblogs.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +16,11 @@ public class User {
     private String email;
     private String password;
     private String profilePic;
+
+    private List<String> followers = new ArrayList<>();
+    private List<String> following = new ArrayList<>();
+
+
 
     public User() {}
 
@@ -62,5 +70,17 @@ public class User {
 
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+    public List<String> getFollowers() {
+        return followers;
+    }
+    public void setFollowers(List<String> followers) {
+        this.followers = followers;
+    }
+    public List<String> getFollowing() {
+        return following;
+    }
+    public void setFollowing(List<String> following) {
+        this.following = following;
     }
 }
