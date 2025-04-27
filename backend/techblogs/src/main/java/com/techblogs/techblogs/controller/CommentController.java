@@ -1,7 +1,7 @@
-package com.sliit.skillsharingplatform.controller;
+package com.techblogs.techblogs.controller;
 
-import com.sliit.skillsharingplatform.model.Comment;
-import com.sliit.skillsharingplatform.service.CommentService;
+import com.techblogs.techblogs.model.Comment;
+import com.techblogs.techblogs.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +22,11 @@ public class CommentController {
     @GetMapping
     public List<Comment> getAllComments() {
         return commentService.getAllComments();
+    }
+
+    @PutMapping("/{id}")
+    public Comment updateComment(@PathVariable String id, @RequestBody Comment updatedComment) {
+        return commentService.updateComment(id, updatedComment);
     }
 
     @DeleteMapping("/{id}/{userId}")

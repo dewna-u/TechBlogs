@@ -1,9 +1,9 @@
-package com.sliit.skillsharingplatform.service;
+package com.techblogs.techblogs.service;
 
-import com.sliit.skillsharingplatform.model.Comment;
-import com.sliit.skillsharingplatform.model.Post;
-import com.sliit.skillsharingplatform.repository.CommentRepository;
-import com.sliit.skillsharingplatform.repository.PostRepository;
+import com.techblogs.techblogs.model.Comment;
+import com.techblogs.techblogs.model.Post;
+import com.techblogs.techblogs.repository.CommentRepository;
+import com.techblogs.techblogs.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +30,16 @@ public class CommentService {
 
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
+    }
+
+    public Comment updateComment(String id, Comment updatedComment) {
+        Comment existingComment = commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found with id: " + id));
+
+        existingComment.setContent(updatedComment.getContent());
+        // You can allow update of other fields if needed
+
+        return commentRepository.save(existingComment);
     }
 
     public void deleteComment(String commentId, String userId) {

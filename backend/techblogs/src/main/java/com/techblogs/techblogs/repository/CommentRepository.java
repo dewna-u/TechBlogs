@@ -1,6 +1,6 @@
-package com.sliit.skillsharingplatform.repository;
+package com.techblogs.techblogs.repository;
 
-import com.sliit.skillsharingplatform.model.Comment;
+import com.techblogs.techblogs.model.Comment;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CommentRepository extends MongoRepository<Comment, String> {
