@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AllProfiles from "./pages/AllProfiles";
 import Dashboard from "./pages/Dashboard";
+import CourseManager from "./pages/CourseManager";
+import CourseDetails from "./pages/CourseDetails";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -46,6 +48,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
 
+        <Route path='/managecourse' element={<CourseManager />} />
+        <Route path="/course/:id" element={<CourseDetails />} />
       </Routes>
     </ThemeProvider>
   );
