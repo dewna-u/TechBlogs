@@ -22,7 +22,7 @@ export default function Register() {
     console.log("🔐 Sending registration data:", form);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/register", form);
+      const res = await axios.post("http://localhost:8081/api/auth/register", form);
       console.log("✅ Registered user:", res.data);
       navigate("/login");
     } catch (err) {
@@ -38,7 +38,7 @@ export default function Register() {
 
     // Send to backend register/login endpoint
     axios
-      .post("http://localhost:8080/api/auth/google", {
+      .post("http://localhost:8081/api/auth/google", {
         name: decoded.name,
         email: decoded.email,
         profilePic: decoded.picture,
