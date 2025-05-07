@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AllProfiles from "./pages/AllProfiles";
 import Dashboard from "./pages/Dashboard";
+import MyPosts from "./pages/MyPosts";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostFeed />} />
           <Route path="/create" element={<CreatePost />} />
+          <Route path="/my-posts" element={<MyPosts />} />
           <Route path="/learning-plan" element={<LearningPlan />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/users" element={<AllProfiles />} />

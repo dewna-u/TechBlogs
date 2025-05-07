@@ -3,7 +3,9 @@ package com.techblogs.techblogs.service;
 import com.techblogs.techblogs.model.Comment;
 import com.techblogs.techblogs.model.Post;
 import com.techblogs.techblogs.repository.CommentRepository;
+import com.techblogs.techblogs.repository.UserRepository;
 import com.techblogs.techblogs.repository.PostRepository;
+import com.techblogs.techblogs.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,23 @@ public class CommentService {
     private CommentRepository commentRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public Comment createComment(Comment comment) {
+        // If userName isn't provided, try to get it from the user repository
+        if (comment.getUserName() == null && !comment.getUserId().equals("guest")) {
+            Optional<User> userOpt = userRepository.findById(comment.getUserId());
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                comment.setUserName(user.getName());
+            } else {
+                comment.setUserName("Unknown User");
+            }
+        } else if (comment.getUserId().equals("guest") && comment.getUserName() == null) {
+            comment.setUserName("Guest");
+        }
+
         Comment saved = commentRepository.save(comment);
         Optional<Post> postOpt = postRepository.findById(comment.getPostId());
         if (postOpt.isPresent()) {
@@ -46,12 +63,22 @@ public class CommentService {
         Optional<Comment> commentOpt = commentRepository.findById(commentId);
         if (commentOpt.isPresent()) {
             Comment comment = commentOpt.get();
+
+            // Check if the user is the comment owner OR the post owner
+            boolean isCommentOwner = comment.getUserId().equals(userId);
+            boolean isPostOwner = false;
+
             Optional<Post> postOpt = postRepository.findById(comment.getPostId());
-            if (postOpt.isPresent() && postOpt.get().getUserId().equals(userId)) {
-                commentRepository.deleteById(commentId);
+            if (postOpt.isPresent()) {
                 Post post = postOpt.get();
-                post.getComments().remove(commentId);
-                postRepository.save(post);
+                isPostOwner = post.getUserId().equals(userId);
+
+                // Allow deletion if user is comment owner OR post owner
+                if (isCommentOwner || isPostOwner) {
+                    commentRepository.deleteById(commentId);
+                    post.getComments().remove(commentId);
+                    postRepository.save(post);
+                }
             }
         }
     }

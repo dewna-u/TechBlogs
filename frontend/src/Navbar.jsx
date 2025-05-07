@@ -27,7 +27,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Navbar({ toggleTheme }) {
   const navigate = useNavigate();
   const theme = useTheme();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user, setUser } = useContext(AuthContext);
 
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,6 +64,9 @@ export default function Navbar({ toggleTheme }) {
             </Button>
             <Button color="inherit" component={Link} to="/create">
               Create
+            </Button>
+            <Button color="inherit" component={Link} to="/my-posts">
+              My Posts
             </Button>
             <Button color="inherit" component={Link} to="/learning-plan">
               Learn

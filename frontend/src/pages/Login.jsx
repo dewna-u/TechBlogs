@@ -10,7 +10,7 @@ import {
   TextField,
   Button
 } from '@mui/material';
-import axios from 'axios';
+import axios from '../config/axios';
 import { AuthContext } from '../context/AuthContext';
 
 export default function Login() {
@@ -23,12 +23,21 @@ export default function Login() {
   const handleCustomLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/login", {
+      console.log("Attempting login with:", { email });
+      const res = await axios.post("/api/auth/login", {
         email,
         password,
       });
-      console.log("✅ Custom login:", res.data);
-      setUser(res.data);
+      console.log("✅ Custom login response:", res.data);
+      
+      // Ensure we have an ID field from backend
+      const userData = res.data;
+      if (!userData.id && userData._id) {
+        userData.id = userData._id;
+      }
+      
+      console.log("✅ Saving user data:", userData);
+      setUser(userData);
       navigate("/dashboard");
     } catch (err) {
       console.error("❌ Login error:", err);
@@ -41,17 +50,31 @@ export default function Login() {
     const decoded = jwtDecode(credentialResponse.credential);
     console.log('✅ Google user decoded:', decoded);
 
-    axios.post("http://localhost:8080/api/auth/google", {
+    const googleData = {
       name: decoded.name,
       email: decoded.email,
       profilePic: decoded.picture
-    }).then(res => {
-      console.log("✅ Google user saved:", res.data);
-      setUser(res.data);
-      navigate("/dashboard");
-    }).catch(err => {
-      console.error("❌ Google login error:", err);
-    });
+    };
+    
+    console.log("Sending Google login data:", googleData);
+    
+    axios.post("/api/auth/google", googleData)
+      .then(res => {
+        console.log("✅ Google login response:", res.data);
+        
+        // Ensure we have an ID field from backend
+        const userData = res.data;
+        if (!userData.id && userData._id) {
+          userData.id = userData._id;
+        }
+        
+        console.log("✅ Saving Google user data:", userData);
+        setUser(userData);
+        navigate("/dashboard");
+      })
+      .catch(err => {
+        console.error("❌ Google login error:", err);
+      });
   };
 
   return (

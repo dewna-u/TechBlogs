@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../config/axios";
 import {
   Container,
   TextField,
@@ -22,7 +22,7 @@ export default function Register() {
     console.log("🔐 Sending registration data:", form);
 
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/register", form);
+      const res = await axios.post("/api/auth/register", form);
       console.log("✅ Registered user:", res.data);
       navigate("/login");
     } catch (err) {
@@ -38,7 +38,7 @@ export default function Register() {
 
     // Send to backend register/login endpoint
     axios
-      .post("http://localhost:8080/api/auth/google", {
+      .post("/api/auth/google", {
         name: decoded.name,
         email: decoded.email,
         profilePic: decoded.picture,

@@ -1,10 +1,11 @@
 package com.techblogs.techblogs.repository;
 
-import com.techblogs.techblogs.model.User;
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.techblogs.techblogs.model.User;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
