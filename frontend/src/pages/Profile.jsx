@@ -1,4 +1,3 @@
-// src/pages/Profile.jsx
 import React, { useEffect, useState } from "react";
 import {
   Container,
@@ -13,7 +12,7 @@ import {
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import FollowButton from "../FollowButton";
-import FollowersModal from "../FollowersModal"; // Adjust paths
+import FollowersModal from "../FollowersModal";
 
 export default function Profile() {
   const { userId } = useParams();
@@ -30,8 +29,9 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [followersOpen, setFollowersOpen] = useState(false);
   const [followingOpen, setFollowingOpen] = useState(false);
+
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
-  const canEdit = loggedInUser && loggedInUser._id === userId;
+  const canEdit = loggedInUser && String(loggedInUser._id) === String(userId);
 
   useEffect(() => {
     axios.get(`http://localhost:8080/api/users/${userId}`).then((res) => {
@@ -84,9 +84,6 @@ export default function Profile() {
           </Typography>
 
           <FollowButton profileUserId={form._id} />
-
-
-         
         </Box>
 
         <Box display="flex" justifyContent="center" gap={3} mt={2}>
@@ -101,7 +98,7 @@ export default function Profile() {
         <Divider sx={{ my: 3 }} />
 
         {canEdit && (
-          <>
+          <Box>
             {isEditing ? (
               <>
                 <TextField
@@ -147,7 +144,7 @@ export default function Profile() {
                 </Button>
               </Box>
             )}
-          </>
+          </Box>
         )}
       </Paper>
 
