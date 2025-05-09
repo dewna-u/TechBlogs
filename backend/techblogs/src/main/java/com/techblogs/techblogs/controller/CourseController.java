@@ -1,7 +1,7 @@
-package com.techblogs.techblogs.controller;
+package com.leaning.learning_management.controller;
 
-import com.techblogs.techblogs.model.Course;
-import com.techblogs.techblogs.service.CourseService;
+import com.leaning.learning_management.model.Course;
+import com.leaning.learning_management.service.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

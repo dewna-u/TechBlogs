@@ -1,4 +1,4 @@
-package com.techblogs.techblogs.model;
+package com.leaning.learning_management.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,13 +25,5 @@ public class Course {
     private List<String> tags;
     private String duration;
     private List<String> learningOutcomes;
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    public String getId() {
-        return id;
-    }
 }
 

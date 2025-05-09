@@ -1,7 +1,7 @@
-package com.techblogs.techblogs.service;
+package com.leaning.learning_management.service;
 
-import com.techblogs.techblogs.model.Course;
-import com.techblogs.techblogs.repository.CourseRepository;
+import com.leaning.learning_management.model.Course;
+import com.leaning.learning_management.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
